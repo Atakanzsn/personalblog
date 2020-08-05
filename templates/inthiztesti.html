@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>YAZI HIZI TESTİ</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>Tek tuş ile download ve upload hızınızı görün.</p>
+
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+
+        </p>
+        <p>
+        <h6>İstediğiniz butona basıp beklemeniz yeterlidir.</h6>
+        </p>
+        <img src="/static/images/is1.png" alt="">
+
+        <p>
+        <h6> Program hesaplarken yanıt vermeyecektir. Lütfen tıklamayınız veya kapatmayınız, beklemeniz yeterlidir.</h6>
+        </p>
+        <img src="/static/images/is2.png" alt="">
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from PyQt5 import QtCore, QtGui, QtWidgets
+            import speedtest
+            import sys, os 
+            def resource_path(relative_path):
+                if hasattr(sys, '_MEIPASS'):
+                    return os.path.join(sys._MEIPASS, relative_path)
+                return os.path.join(os.path.abspath("."), relative_path)
+            class Ui_Form(object):
+                def setupUi(self, Form):
+                    Form.setObjectName("Form")
+                    Form.resize(400, 229)
+                    Form.setStyleSheet("background-color: rgb(255, 170, 255);")
+                    self.label = QtWidgets.QLabel(Form)
+                    self.label.setGeometry(QtCore.QRect(6, 150, 381, 61))
+                    font = QtGui.QFont()
+                    font.setFamily("Times New Roman")
+                    font.setPointSize(10)
+                    font.setBold(True)
+                    font.setItalic(True)
+                    font.setWeight(75)
+                    self.label.setFont(font)
+                    self.label.setAlignment(QtCore.Qt.AlignCenter)
+                    self.label.setObjectName("label")
+                    self.pushButton = QtWidgets.QPushButton(Form)
+                    self.pushButton.setGeometry(QtCore.QRect(10, 10, 151, 41))
+                    self.pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
+                    self.pushButton.setObjectName("pushButton")
+                    self.pushButton_2 = QtWidgets.QPushButton(Form)
+                    self.pushButton_2.setGeometry(QtCore.QRect(230, 10, 151, 41))
+                    self.pushButton_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+                    self.pushButton_2.setObjectName("pushButton_2")
+                    self.pushButton_2.clicked.connect(self.upload)
+                    self.pushButton.clicked.connect(self.download)
+
+                    self.retranslateUi(Form)
+                    QtCore.QMetaObject.connectSlotsByName(Form)
+
+                def retranslateUi(self, Form):
+                    _translate = QtCore.QCoreApplication.translate
+                    Form.setWindowTitle(_translate("Form", "İnternet Hız Testi"))
+                    self.label.setText(_translate("Form", """Lütfen Butonlardan Birini Seçiniz"""))
+                    self.pushButton.setText(_translate("Form", "Download Hızımı Ölç"))
+                    self.pushButton_2.setText(_translate("Form", "Upload Hızımı Ölç"))
+
+                def upload(self):
+                    
+                    st = speedtest.Speedtest()
+                    self.label.setText("Upload Hızınız: "+ str(st.upload() * 0.00000762939 / 8)[:4]+ " MB/s'dir")
+                    
+
+                def download(self):
+                    st = speedtest.Speedtest()
+                    self.label.setText("Download Hızınız: "+ str(st.download() * 0.00000762939 / 8)[:4]+ " MB/s'dir")
+
+
+            if __name__ == "__main__":
+                import sys
+                app = QtWidgets.QApplication(sys.argv)
+                Form = QtWidgets.QWidget()
+                ui = Ui_Form()
+                ui.setupUi(Form)
+                Form.show()
+                sys.exit(app.exec_())
+        </pre>
+        
+    </div>
+</div>
+{% endblock body %}

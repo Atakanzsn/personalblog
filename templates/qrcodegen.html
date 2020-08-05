@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>QR Kod Oluşturucu</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>İstediğin url'yi QR Kod'a dönüştür!</p>
+
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+
+        </p>
+        <p>
+        <h6>Url'yi girip butona basmanız yeterlidir, indirme işlemi sırasında program yanıt vermeyebilir. Lütfen bekleyiniz.</h6>
+        </p>
+        <img src="/static/images/qr1.png" alt="">
+
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            import pyqrcode
+            from tkinter import *
+            import tkinter.ttk as ttk
+            import PIL
+            from PIL import ImageTk
+            from PIL import Image
+            import png
+
+
+            win = Tk()
+            win.title("QR Code")
+            win.config(background="#fed304")
+
+            def generate():
+                text = entry1.get()
+                qr = pyqrcode.create(text)
+                file_name = "my_codes"
+                save_path = r"C:\Users\ataka\Desktop\ "
+                name = save_path+file_name+".png"
+
+                qr.png(name,scale=10)
+                image = Image.open(name)
+                image = image.resize((400,400), Image.ANTIALIAS)
+                image = ImageTk.PhotoImage(image)
+                win.imagelabel.config(image=image)
+                win.imagelabel.photo = image
+                text = ttk.Label(win,text = "Enter text or link : ")
+                text.grid(row=0,column=0,padx=3,pady=3)
+
+            entry1 = ttk.Entry(win,width=40)
+            entry1.grid(row=0,column=1,padx=3,pady=3)
+
+            button = ttk.Button(win,text="Generate",command=generate)
+            button.grid(row=0,column=2,padx=3,pady=3)
+
+            show_qr = ttk.Label(win, text="QR Code : ")
+            show_qr.grid(row=1,column=0,padx=3,pady=3)
+
+            win.imagelabel = ttk.Label(win,background='#fed304')
+            win.imagelabel.grid(row=2,column=0,padx=3,pady=3,columnspan=3)
+
+            #win.after(60000, lambda: win.destroy())
+            win.mainloop()
+
+        </pre>
+
+        <!--Kodlar gelecek buraya-->
+        <p>
+            <h4>GUİ, Designer'da hazırlandığı için biraz karışık olabilir.</h4>
+            </p>
+            <!--Kodlar gelecek buraya-->
+            <h3><a href="">.exe olarak
+                indirmek için buraya tıklayın</a></h3>
+            <hr>
+    </div>
+</div>
+{% endblock body %}

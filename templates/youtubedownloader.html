@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>Youtube Video İndirici</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>İstediğiniz videoyu indirin!</p>
+
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+
+        </p>
+        <p>
+        <h6>Videoun url adresini girip butona tıklamanız yeterlidir.</h6>
+        </p>
+        <img src="/static/images/yd1.png" alt="">
+
+        <p>
+        <h6>İndirme devam ettiği sürece program yanıt vermeyecektir. Lütfen tıklamayın veya kapatmayın. İndirme
+            bittiğinde size haber verecektir. </h6>
+        </p>
+        <img src="/static/images/yd2.png" alt="">
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from PyQt5 import QtCore, QtGui, QtWidgets
+            from pytube import YouTube
+            import time
+
+            class Ui_Form(object):
+                def setupUi(self, Form):
+                    Form.setObjectName("Form")
+                    Form.resize(420, 309)
+                    Form.setStyleSheet("background-color: rgb(0, 255, 255);")
+                    self.button = QtWidgets.QPushButton(Form)
+                    self.button.setGeometry(QtCore.QRect(150, 240, 121, 31))
+                    self.button.setStyleSheet("\n"
+            "background-color: rgb(255, 255, 255);")
+                    self.button.setAutoRepeatDelay(300)
+                    self.button.setObjectName("button")
+                    self.url_inp = QtWidgets.QLineEdit(Form)
+                    self.url_inp.setGeometry(QtCore.QRect(40, 140, 331, 31))
+                    self.url_inp.setStyleSheet("background-color: rgb(255, 255, 255);")
+                    self.url_inp.setObjectName("url_inp")
+                    self.linki_gir = QtWidgets.QLabel(Form)
+                    self.linki_gir.setEnabled(True)
+                    self.linki_gir.setGeometry(QtCore.QRect(40, 100, 331, 31))
+                    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+                    sizePolicy.setHorizontalStretch(0)
+                    sizePolicy.setVerticalStretch(0)
+                    sizePolicy.setHeightForWidth(self.linki_gir.sizePolicy().hasHeightForWidth())
+                    self.linki_gir.setSizePolicy(sizePolicy)
+                    font = QtGui.QFont()
+                    font.setFamily("Times New Roman")
+                    font.setPointSize(16)
+                    font.setBold(True)
+                    font.setItalic(True)
+                    font.setUnderline(False)
+                    font.setWeight(75)
+                    font.setStrikeOut(False)
+                    font.setKerning(True)
+                    self.linki_gir.setFont(font)
+                    self.linki_gir.setMouseTracking(True)
+                    self.linki_gir.setTabletTracking(False)
+                    self.linki_gir.setAcceptDrops(False)
+                    self.linki_gir.setLayoutDirection(QtCore.Qt.LeftToRight)
+                    self.linki_gir.setAutoFillBackground(False)
+                    self.linki_gir.setMidLineWidth(1)
+                    self.linki_gir.setTextFormat(QtCore.Qt.AutoText)
+                    self.linki_gir.setScaledContents(False)
+                    self.linki_gir.setAlignment(QtCore.Qt.AlignCenter)
+                    self.linki_gir.setWordWrap(False)
+                    self.linki_gir.setObjectName("linki_gir")
+                    self.labe = QtWidgets.QLabel(Form)
+                    self.labe.setGeometry(QtCore.QRect(100, 180, 221, 51))
+                    font = QtGui.QFont()
+                    font.setFamily("Times New Roman")
+                    font.setPointSize(14)
+                    font.setBold(True)
+                    font.setItalic(True)
+                    font.setWeight(75)
+                    self.labe.setFont(font)
+                    self.labe.setText("")
+                    self.labe.setAlignment(QtCore.Qt.AlignCenter)
+                    self.labe.setObjectName("labe")
+                    self.button.clicked.connect(self.fonk)
+
+                    self.retranslateUi(Form)
+                    QtCore.QMetaObject.connectSlotsByName(Form)
+
+                def retranslateUi(self, Form):
+                    _translate = QtCore.QCoreApplication.translate
+                    Form.setWindowTitle(_translate("Form", "Youtube Downloader"))
+                    self.button.setText(_translate("Form", "İNDİR"))
+                    self.linki_gir.setText(_translate("Form", "Aşağıya Linkini Gir"))
+
+                def fonk(self):
+                    try:
+                        url = self.url_inp.text()
+                        YouTube(url).streams.first().download()
+                        self.labe.setText("İndirme Başlatılıyor, Lütfen Bekleyiniz...")
+                        time.sleep(3)
+                        self.labe.setText("İndirme Başarılı...")
+                    except:
+                        self.labe.setText("Bir Hata oluştu..")
+                    
+            if __name__ == "__main__":
+                import sys
+                app = QtWidgets.QApplication(sys.argv)
+                Form = QtWidgets.QWidget()
+                ui = Ui_Form()
+                ui.setupUi(Form)
+                Form.show()
+                sys.exit(app.exec_())
+        </pre>
+        <!--Kodlar gelecek buraya-->
+        <p>
+            <h4>GUİ, Designer'da hazırlandığı için biraz karışık olabilir.</h4>
+            </p>
+            <!--Kodlar gelecek buraya-->
+            <h3><a href="https://drive.google.com/file/d/1PLU_rxZPc_CIccLlmfnt0avVDzXqoJp9/view?usp=sharing">.exe olarak
+                    indirmek için buraya tıklayın</a></h3>
+            <hr>
+    </div>
+</div>
+{% endblock %}

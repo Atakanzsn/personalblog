@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>Windows'ta Masaüstüne Bildirim Gönderin</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>Sadece birkaç satır kod ile kullanıcıya bildirim gönderebilirsiniz.</p>
+
+        <p>
+        <h6>Bildiriminiz şu şekilde gözükecektir: </h6>
+        </p>
+        <img src="/static/images/ntf1.png" alt="">
+
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from win10toast import ToastNotifier
+            import time
+
+            toaster = ToastNotifier()
+            toaster.show_toast("Başlık","Mesaj",threaded=True,icon_path=None,
+                            duration=3)
+
+            while toaster.notification_active():
+                time.sleep(0.1)
+
+        </pre>
+        <!--Kodlar gelecek buraya-->
+        <hr>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>Mail Gönder</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>Kendi programınla kolayca mail gönder!</p>
+
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+        </p>
+        <p>
+        <h6>From ve e-mail kısmına kendi mailinizi, şifre kısmına da şifrenizi girdikten sonra mailinizi gönderebilirsiniz.</h6>
+        </p>
+        <img src="/static/images/mail1.png" alt="">
+
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from PyQt5 import QtCore, QtGui, QtWidgets
+            import smtplib
+            from email.mime.multipart import MIMEMultipart
+            from email.mime.text import MIMEText
+            from PyQt5.QtWidgets import QFileDialog
+            import sys
+            import os
+
+
+            class Ui_Form(object):
+                def setupUi(self, Form):
+                    Form.setObjectName("Form")
+                    Form.resize(588, 552)
+                    self.horizontalLayoutWidget = QtWidgets.QWidget(Form)
+                    self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 460, 411, 91))
+                    self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+                    self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+                    self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+                    self.horizontalLayout.setObjectName("horizontalLayout")
+                    self.pushButton_2 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+                    self.pushButton_2.setObjectName("pushButton_2")
+                    self.horizontalLayout.addWidget(self.pushButton_2)
+                    self.pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+                    self.pushButton.setObjectName("pushButton")
+                    self.horizontalLayout.addWidget(self.pushButton)
+                    spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+                    self.horizontalLayout.addItem(spacerItem)
+                    self.label = QtWidgets.QLabel(Form)
+                    self.label.setGeometry(QtCore.QRect(10, 10, 61, 21))
+                    self.label.setObjectName("label")
+                    self.label_2 = QtWidgets.QLabel(Form)
+                    self.label_2.setGeometry(QtCore.QRect(10, 40, 61, 21))
+                    self.label_2.setObjectName("label_2")
+                    self.lineEdit = QtWidgets.QLineEdit(Form)
+                    self.lineEdit.setGeometry(QtCore.QRect(60, 10, 281, 21))
+                    self.lineEdit.setObjectName("lineEdit")
+                    self.lineEdit_2 = QtWidgets.QLineEdit(Form)
+                    self.lineEdit_2.setGeometry(QtCore.QRect(60, 40, 281, 20))
+                    self.lineEdit_2.setObjectName("lineEdit_2")
+                    self.label_3 = QtWidgets.QLabel(Form)
+                    self.label_3.setGeometry(QtCore.QRect(10, 70, 51, 21))
+                    self.label_3.setObjectName("label_3")
+                    self.lineEdit_3 = QtWidgets.QLineEdit(Form)
+                    self.lineEdit_3.setGeometry(QtCore.QRect(60, 70, 281, 20))
+                    self.lineEdit_3.setObjectName("lineEdit_3")
+                    self.label_4 = QtWidgets.QLabel(Form)
+                    self.label_4.setGeometry(QtCore.QRect(10, 100, 51, 21))
+                    self.label_4.setObjectName("label_4")
+                    self.textEdit = QtWidgets.QTextEdit(Form)
+                    self.textEdit.setGeometry(QtCore.QRect(10, 120, 561, 331))
+                    self.textEdit.setObjectName("textEdit")
+                    self.label_5 = QtWidgets.QLabel(Form)
+                    self.label_5.setGeometry(QtCore.QRect(370, 10, 61, 21))
+                    self.label_5.setObjectName("label_5")
+                    self.lineEdit_4 = QtWidgets.QLineEdit(Form)
+                    self.lineEdit_4.setGeometry(QtCore.QRect(370, 30, 201, 20))
+                    self.lineEdit_4.setObjectName("lineEdit_4")
+                    self.label_6 = QtWidgets.QLabel(Form)
+                    self.label_6.setGeometry(QtCore.QRect(370, 50, 61, 21))
+                    self.label_6.setObjectName("label_6")
+                    self.lineEdit_5 = QtWidgets.QLineEdit(Form)
+                    self.lineEdit_5.setGeometry(QtCore.QRect(370, 70, 201, 20))
+                    self.lineEdit_5.setObjectName("lineEdit_5")
+                    self.label_7 = QtWidgets.QLabel(Form)
+                    self.label_7.setGeometry(QtCore.QRect(440, 460, 131, 71))
+                    self.label_7.setObjectName("label_7")
+
+
+                    self.pushButton_2.clicked.connect(self.gonder)
+                    self.pushButton.clicked.connect(self.kaydet)
+
+
+                    self.retranslateUi(Form)
+                    QtCore.QMetaObject.connectSlotsByName(Form)
+
+                def retranslateUi(self, Form):
+                    _translate = QtCore.QCoreApplication.translate
+                    Form.setWindowTitle(_translate("Form", "Form"))
+                    self.pushButton_2.setText(_translate("Form", "Gönder"))
+                    self.pushButton.setText(_translate("Form", "Taslak Olarak Kaydet"))
+                    self.label.setText(_translate("Form", "From      :"))
+                    self.label_2.setText(_translate("Form", "To          :"))
+                    self.label_3.setText(_translate("Form", "Konu      :"))
+                    self.label_4.setText(_translate("Form", "Mesaj  :"))
+                    self.label_5.setText(_translate("Form", "Email:"))
+                    self.label_6.setText(_translate("Form", "Şifre:"))
+                    self.label_7.setText(_translate("Form", ""))
+
+                def gonder(self):
+                    self.mesaj = MIMEMultipart()
+                    self.mesaj["From"] = self.lineEdit.text()
+                    self.mesaj["To"] = self.lineEdit_2.text()
+                    self.mesaj["Subject"] = self.lineEdit_3.text()
+                    yazi = self.textEdit.toPlainText()
+                    mesaj_govdesi = MIMEText(yazi, "plain")
+                    self.mesaj.attach(mesaj_govdesi)
+                    self.a = self.lineEdit_4.text()
+                    self.b = self.lineEdit_5.text()
+                    try:
+                        mail.smtplib.SMTP("smtp.gmail.com",587)
+                        mail.ehlo()
+                        mail.starttls()
+                        mail.login(self.a,self.b)
+                        mail.sendmail(self.mesaj["From"],self.mesaj["To"],self.mesaj.as_string())
+                        self.label_7.setText("Mail Gönderildi")
+
+                        mail.close()
+                    except:
+                        self.label_7.setText("Bir hata oluştu!")
+                def kaydet(self):
+                    dosya_ismi = QFileDialog.getSaveFileName(self, "Taslak Olarak Kaydet", os.getenv("HOME"))
+
+                    with open(dosya_ismi[0], "w", encoding="utf-8") as file:
+                        file.write(self.textEdit.toPlainText())
+
+                    print(type(self))
+
+
+            if __name__ == "__main__":
+                app = QtWidgets.QApplication(sys.argv)
+                Form = QtWidgets.QWidget()
+                ui = Ui_Form()
+                ui.setupUi(Form)
+                Form.show()
+                sys.exit(app.exec_())
+
+        </pre>
+
+        <!--Kodlar gelecek buraya-->
+        <p>
+            <h4>GUİ, Designer'da hazırlandığı için biraz karışık olabilir.</h4>
+            </p>
+            <!--Kodlar gelecek buraya-->
+            <h3><a href="https://drive.google.com/file/d/1byzJdDwH0KEITmpmKeGbwBagrYfBFgIO/view?usp=sharing">.exe olarak
+                    indirmek için buraya tıklayın</a></h3>
+            <hr>
+    </div>
+</div>
+{% endblock body %}

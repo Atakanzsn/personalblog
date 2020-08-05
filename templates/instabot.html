@@ -1,0 +1,237 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>İnstagram Bot</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>İnstagram'da yeterince aktif değil misin, bırak botun senin için her şeyi yapsın!</p>
+
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+        </p>
+        <p>
+        <h6>Yüzde böümlerine sadece sayı giriniz, "%" işaretine gerek yoktur. Program çalışırken yanıt vermeyecektir,
+            lütfen bekleyiniz.</h6>
+        </p>
+        <img src="/static/images/insta1.png" alt="">
+
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from PyQt5 import QtCore, QtGui, QtWidgets
+            from instapy import InstaPy
+
+            class Ui_Form(object):
+                def setupUi(self, Form):
+                    Form.setObjectName("Form")
+                    Form.resize(474, 446)
+                    self.formLayoutWidget = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget.setGeometry(QtCore.QRect(10, 10, 381, 54))
+                    self.formLayoutWidget.setObjectName("formLayoutWidget")
+                    self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
+                    self.formLayout.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout.setObjectName("formLayout")
+                    self.label = QtWidgets.QLabel(self.formLayoutWidget)
+                    self.label.setObjectName("label")
+                    self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
+                    self.lineEdit = QtWidgets.QLineEdit(self.formLayoutWidget)
+                    self.lineEdit.setObjectName("lineEdit")
+                    self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit)
+                    self.lineEdit_2 = QtWidgets.QLineEdit(self.formLayoutWidget)
+                    self.lineEdit_2.setObjectName("lineEdit_2")
+                    self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_2)
+                    self.label_2 = QtWidgets.QLabel(self.formLayoutWidget)
+                    self.label_2.setObjectName("label_2")
+                    self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
+                    self.formLayoutWidget_2 = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget_2.setGeometry(QtCore.QRect(10, 70, 161, 21))
+                    self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
+                    self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
+                    self.formLayout_2.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout_2.setObjectName("formLayout_2")
+                    self.label_3 = QtWidgets.QLabel(self.formLayoutWidget_2)
+                    self.label_3.setObjectName("label_3")
+                    self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_3)
+                    self.radioButton = QtWidgets.QRadioButton(self.formLayoutWidget_2)
+                    self.radioButton.setText("")
+                    self.radioButton.setObjectName("radioButton")
+                    self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.radioButton)
+                    self.formLayoutWidget_3 = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget_3.setGeometry(QtCore.QRect(230, 70, 161, 22))
+                    self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
+                    self.formLayout_3 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
+                    self.formLayout_3.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout_3.setObjectName("formLayout_3")
+                    self.label_4 = QtWidgets.QLabel(self.formLayoutWidget_3)
+                    self.label_4.setObjectName("label_4")
+                    self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_4)
+                    self.lineEdit_3 = QtWidgets.QLineEdit(self.formLayoutWidget_3)
+                    self.lineEdit_3.setObjectName("lineEdit_3")
+                    self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit_3)
+                    self.formLayoutWidget_4 = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget_4.setGeometry(QtCore.QRect(10, 100, 161, 22))
+                    self.formLayoutWidget_4.setObjectName("formLayoutWidget_4")
+                    self.formLayout_4 = QtWidgets.QFormLayout(self.formLayoutWidget_4)
+                    self.formLayout_4.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout_4.setObjectName("formLayout_4")
+                    self.label_5 = QtWidgets.QLabel(self.formLayoutWidget_4)
+                    self.label_5.setObjectName("label_5")
+                    self.formLayout_4.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_5)
+                    self.lineEdit_4 = QtWidgets.QLineEdit(self.formLayoutWidget_4)
+                    self.lineEdit_4.setObjectName("lineEdit_4")
+                    self.formLayout_4.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit_4)
+                    self.formLayoutWidget_5 = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget_5.setGeometry(QtCore.QRect(230, 100, 161, 22))
+                    self.formLayoutWidget_5.setObjectName("formLayoutWidget_5")
+                    self.formLayout_5 = QtWidgets.QFormLayout(self.formLayoutWidget_5)
+                    self.formLayout_5.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout_5.setObjectName("formLayout_5")
+                    self.label_6 = QtWidgets.QLabel(self.formLayoutWidget_5)
+                    self.label_6.setObjectName("label_6")
+                    self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_6)
+                    self.lineEdit_5 = QtWidgets.QLineEdit(self.formLayoutWidget_5)
+                    self.lineEdit_5.setObjectName("lineEdit_5")
+                    self.formLayout_5.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit_5)
+                    self.pushButton = QtWidgets.QPushButton(Form)
+                    self.pushButton.setGeometry(QtCore.QRect(10, 160, 231, 41))
+                    font = QtGui.QFont()
+                    font.setPointSize(14)
+                    font.setBold(True)
+                    font.setWeight(75)
+                    self.pushButton.setFont(font)
+                    self.pushButton.setObjectName("pushButton")
+                    self.label_7 = QtWidgets.QLabel(Form)
+                    self.label_7.setGeometry(QtCore.QRect(10, 210, 381, 41))
+                    self.label_7.setText("")
+                    self.label_7.setObjectName("label_7")
+                    self.label_8 = QtWidgets.QLabel(Form)
+                    self.label_8.setGeometry(QtCore.QRect(10, 290, 381, 131))
+                    font = QtGui.QFont()
+                    font.setPointSize(10)
+                    font.setBold(True)
+                    font.setUnderline(True)
+                    font.setWeight(75)
+                    self.label_8.setFont(font)
+                    self.label_8.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+                    self.label_8.setObjectName("label_8")
+                    self.formLayoutWidget_6 = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget_6.setGeometry(QtCore.QRect(10, 130, 381, 22))
+                    self.formLayoutWidget_6.setObjectName("formLayoutWidget_6")
+                    self.formLayout_6 = QtWidgets.QFormLayout(self.formLayoutWidget_6)
+                    self.formLayout_6.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout_6.setObjectName("formLayout_6")
+                    self.label_9 = QtWidgets.QLabel(self.formLayoutWidget_6)
+                    self.label_9.setObjectName("label_9")
+                    self.formLayout_6.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_9)
+                    self.lineEdit_6 = QtWidgets.QLineEdit(self.formLayoutWidget_6)
+                    self.lineEdit_6.setObjectName("lineEdit_6")
+                    self.formLayout_6.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit_6)
+                    self.formLayoutWidget_7 = QtWidgets.QWidget(Form)
+                    self.formLayoutWidget_7.setGeometry(QtCore.QRect(250, 161, 141, 31))
+                    self.formLayoutWidget_7.setObjectName("formLayoutWidget_7")
+                    self.formLayout_7 = QtWidgets.QFormLayout(self.formLayoutWidget_7)
+                    self.formLayout_7.setContentsMargins(0, 0, 0, 0)
+                    self.formLayout_7.setObjectName("formLayout_7")
+                    self.label_10 = QtWidgets.QLabel(self.formLayoutWidget_7)
+                    self.label_10.setObjectName("label_10")
+                    self.formLayout_7.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_10)
+                    self.lineEdit_7 = QtWidgets.QLineEdit(self.formLayoutWidget_7)
+                    self.lineEdit_7.setObjectName("lineEdit_7")
+                    self.formLayout_7.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit_7)
+                    self.pushButton.clicked.connect(self.instagram)
+
+                    self.retranslateUi(Form)
+                    QtCore.QMetaObject.connectSlotsByName(Form)
+
+                def retranslateUi(self, Form):
+                    _translate = QtCore.QCoreApplication.translate
+                    Form.setWindowTitle(_translate("Form", "Instagram Bot 2020"))
+                    self.label.setText(_translate("Form", "Kullanıcı Adınız"))
+                    self.label_2.setText(_translate("Form", "Şifreniz"))
+                    self.label_3.setText(_translate("Form", "Takip Et"))
+                    self.label_4.setText(_translate("Form", "Takip Yüzdesi"))
+                    self.label_5.setText(_translate("Form", "Beğeni Yüzdesi"))
+                    self.label_6.setText(_translate("Form", "Günlük Takip Sınırı"))
+                    self.pushButton.setText(_translate("Form", "Çalıştır"))
+                    self.label_8.setText(_translate("Form", "DİKKAT: \n"
+            " Butona Tıklamadan Önce Firefox ve GeckoDriver\'ın \n"
+            "yüklü olduğundan  emin olunuz.\n"
+            "Ayrıntılı Bilgi İçin:\n"
+            " https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver\n"
+            "Lütfen Taglari virgülle ayırarak yazınız."))
+                    self.label_9.setText(_translate("Form", "Beğenilecek Taglar"))
+                    self.label_10.setText(_translate("Form", "Tag Başına Beğeni"))
+                def instagram(self):
+                    self.label_7.setText("program Çalışıyor, Lütfen Kapatmayınız veya Tıklamayınız.")
+                    try:
+                        self.usern=self.lineEdit.text()
+                        self.passw=self.lineEdit_2.text()
+                        self.tagss = self.lineEdit_6.text().split(",")
+                        if self.lineEdit_7.text() == None:
+                            self.likem = 5
+                        else:
+                            self.likem = self.lineEdit_7.text()
+                        if self.radioButton.isChecked() == True:
+                            self.follows = True
+                        else:
+                            self.follows = False
+                            
+                        if self.lineEdit_3.text() == None:
+                            self.followp = 0
+                        else:
+                            self.followp = self.lineEdit_3.text()
+                            
+                        self.begeniy = self.lineEdit_4.text()
+                        
+                        if self.lineEdit_5.text()==None:
+                            self.takips = 2000
+                        else:
+                            self.takips = self.lineEdit_5.text()
+                        session = InstaPy(username=self.usern, password=self.passw,headless_browser=True)
+                        session.set_quota_supervisor(enabled=True,peak_follows_daily=int(self.takips))
+                        session.login()
+                        
+                        session.set_do_follow(self.follows, percentage=int(self.followp))
+                        session.like_by_tags(self.tagss, amount=int(self.likem))
+                        session.end()
+                    except ValueError:
+                        self.label_7.setText("Hatalı Değer Girdiniz, Lütfen Değerleri Kontrol Ediniz")
+                    except:
+                        self.label_7.setText("Hata! Lütfen Biraz Bekleyip Tekrar Deneyiniz.")
+                
+
+
+
+            if __name__ == "__main__":
+                import sys
+                app = QtWidgets.QApplication(sys.argv)
+                Form = QtWidgets.QWidget()
+                ui = Ui_Form()
+                ui.setupUi(Form)
+                Form.show()
+                sys.exit(app.exec_())
+
+        </pre>
+
+        <!--Kodlar gelecek buraya-->
+        <p>
+        <h4>GUİ Designer'da hazırlandığı için biraz karışık olabilir.</h4>
+        </p>
+        <!--Kodlar gelecek buraya-->
+        <a href=""></a>
+        <hr>
+    </div>
+</div>
+{% endblock body %}

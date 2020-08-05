@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>YAZI HIZI TESTİ</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>Ne kadar hızlı yazdığınızı bir uygulama ile görün!</p>
+        
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+        
+        </p>
+        <p><h6>Başla butonuna tıkladığınız an sayaç başlayacak ve önünüze bir metin gelecektir.</h6> </p>
+        <img src="/static/images/yht1.png" alt="">
+        
+        <p><h6> Hesapla butonuna tıkladığınızda ise sayaç duracak ve saniyede kaç kelime yazdığınız ekranda yazdırılacaktır.</h6> 
+        </p>
+        <img src="/static/images/yht2.png" alt="">
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from PyQt5 import QtCore, QtGui, QtWidgets
+            import datetime
+            import random
+
+            class Ui_Form(object):
+                def setupUi(self, Form):
+                Form.setObjectName("Form")
+                Form.resize(400, 300)
+                self.pushButton = QtWidgets.QPushButton(Form)
+                self.pushButton.setGeometry(QtCore.QRect(10, 260, 91, 31))
+                self.pushButton.setObjectName("pushButton")
+                self.pushButton_2 = QtWidgets.QPushButton(Form)
+                self.pushButton_2.setGeometry(QtCore.QRect(300, 260, 91, 31))
+                self.pushButton_2.setObjectName("pushButton_2")
+                self.textEdit = QtWidgets.QTextEdit(Form)
+                self.textEdit.setGeometry(QtCore.QRect(10, 140, 381, 111))
+                self.textEdit.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+                self.textEdit.setObjectName("textEdit")
+                self.textBrowser = QtWidgets.QTextBrowser(Form)
+                self.textBrowser.setGeometry(QtCore.QRect(10, 10, 381, 51))
+                self.textBrowser.setObjectName("textBrowser")
+                self.textBrowser2 = QtWidgets.QTextBrowser(Form)
+                self.textBrowser2.setGeometry(QtCore.QRect(10, 70, 381, 61))
+                self.textBrowser2.setObjectName("textBrowser2")
+                self.label = QtWidgets.QLabel(Form)
+                self.label.setGeometry(QtCore.QRect(60, 260, 171, 31))
+                self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
+                self.label.setText("")
+                self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+                self.label.setObjectName("label")
+                self.pushButton.clicked.connect(self.connect)
+                self.pushButton_2.clicked.connect(self.hesapla)
+                self.texts = ["diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus",
+                            "vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae",
+                            "lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque",
+                            "amet facilisis magna etiam tempor orci eu lobortis elementum nibh tellus molestie nunc non blandit massa enim nec dui nunc mattis enim ut tellus elementum sagittis vitae et leo duis ut diam quam nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget gravida",
+                            "arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper",
+                            "amet risus nullam eget felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor nec feugiat nisl pretium fusce id velit ut tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at",
+                            "turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus",
+                            "eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa",
+                            "augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum",
+                            "auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus",
+                            "massa id neque aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas dui id ornare arcu odio ut sem nulla",
+                            "faucibus vitae aliquet nec ullamcorper sit amet risus nullam eget felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor nec feugiat nisl pretium fusce id velit ut tortor pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim",
+                            "arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum",
+                            "auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci",
+                            "suscipit adipiscing bibendum est ultricies integer quis auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet"
+                            ]
+                self.retranslateUi(Form)
+                QtCore.QMetaObject.connectSlotsByName(Form)
+
+                def retranslateUi(self, Form):
+                    _translate = QtCore.QCoreApplication.translate
+                    Form.setWindowTitle(_translate("Form", "Yazı Hız Testi"))
+                    self.pushButton.setText(_translate("Form", "Başla"))
+                    self.pushButton_2.setText(_translate("Form", "Hesapla"))
+                    self.textEdit.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+            "p, li { white-space: pre-wrap; }\n"
+            "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+            "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+                    self.textBrowser.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+            "p, li { white-space: pre-wrap; }\n"
+            "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-style:italic;\">Lütfen Başla butonuna tıkladıktan sonra aşağıdaki metni yazınız...</span></p></body></html>"))
+
+                def connect(self):
+                    self.t1 = datetime.datetime.now().time()
+                    text = random.choice(self.texts)
+                    self.textBrowser2.setText(text)
+
+                def hesapla(self):
+                    t2 = datetime.datetime.now().time()
+                    date = datetime.date(1,1,1)
+                    textt = self.textEdit.toPlainText()
+                    d1 = datetime.datetime.combine(date, self.t1)
+                    d2 = datetime.datetime.combine(date, t2)
+                    timee = d2 - d1
+                    last = (len(textt) / timee.seconds )
+                    print(timee.seconds)
+                    print(len(textt))
+                    self.label.setText("Saniyede " + str(last)[:4] + " \n  kelime yazdınız.")
+                    
+                    
+                    
+
+                
+
+            if __name__ == "__main__":
+                import sys
+                app = QtWidgets.QApplication(sys.argv)
+                Form = QtWidgets.QWidget()
+                ui = Ui_Form()
+                ui.setupUi(Form)
+                Form.show()
+                sys.exit(app.exec_())
+
+        </pre>
+        <p>
+            <h4>GUİ, Designer'da hazırlandığı için biraz karışık olabilir.</h4>
+            </p>
+            <!--Kodlar gelecek buraya-->
+            <h3><a href="https://drive.google.com/file/d/15K-qt-m6G3kX3X9B3OKBbFBAvSiwBC6a/view?usp=sharing">.exe olarak
+                    indirmek için buraya tıklayın</a></h3>
+            <hr>
+    </div>
+</div>
+{% endblock body %}

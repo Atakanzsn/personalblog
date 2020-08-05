@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <br> <br>
+    <div class="başlik">
+        <h1>STRES ÇARKI</h1>
+        <style>
+            .başlik {
+                color: red;
+            }
+        </style>
+    </div>
+    <hr>
+
+    <div class="yazi">
+        <p>Gerildiğinizde sizi yumuş yumuş yapacak bir oyun, boşluk tuşunu kırmayın sakın!</p>
+
+        <p>
+        <h4 class="başlik">Kullanımı:</h4>
+
+        </p>
+        <p>
+        <h6>Boşluk tuşu ile döndürebilirsiniz.</h6>
+        </p>
+        <img src="/static/images/fs1.png" alt="">
+
+        <hr>
+        <p>
+        <h4 class="başlik">Kodlar:</h4>
+        </p>
+        <pre class="prettyprint">
+            from turtle import *
+
+            state = {"turn": 0}
+
+            def spinner():
+                "draw spinner"
+                clear()
+                angle = state["turn"] / 10
+                right(angle)
+                forward(100)
+                dot(120,"red")
+                back(100)
+                right(120)
+                forward(100)
+                dot(120,"green")
+                back(100)
+                right(120)
+                forward(100)
+                dot(120,"blue")
+                back(100)
+                right(120)
+                update()
+            def animate():
+                "animate"
+                if state["turn"] > 0:
+                    state["turn"] -= 1
+
+                spinner()
+                ontimer(animate, 20)
+
+            def flick():
+                "flick"
+                state["turn"] += 10
+
+            setup(420,420,370,0)
+            hideturtle()
+            tracer(False)
+            width(20)
+            onkey(flick, "space")
+            listen()
+            animate()
+        </pre>
+
+        <!--Kodlar gelecek buraya-->
+        <hr>
+    </div>
+</div>
+{% endblock body %}
